@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load ecofilters %}
+
+{% block titulo %}Resumo da Compra | {% endblock %}
+
+{% block 'conteudo' %}
+
+<body>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-cart-link active" href="#">
+                        <span class="nav-cart-text mr-1">
+                            Carrinho
+                        </span>
+                        <span class="nav-cart-count mr-1">
+                            <strong>109x</strong>
+                        </span>
+                        <span class="nav-cart-icon mr-2">
+                            <i class="fas fa-shopping-cart"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="container mt-4 mb-4">
+
+        <div class="row mb-5">
+            <div class="col-lg">
+                <h2>Resumo da sua compra</h2>
+
+                <p class="lead">Dados do usuário</p>
+                <p>Caso precise editar, <a href="{% url 'perfil:criar' %}">clique aqui</a></p>
+                <dl class="row">
+                    <dt class="col-lg-2">Nome:</dt>
+                    <dd class="col-lg-4">{{ usuario.first_name }}</dd>
+                    <dt class="col-lg-2">Sobrenome:</dt>
+                    <dd class="col-lg-4">{{ usuario.last_name }}</dd>
+
+                    <dt class="col-lg-2">Idade:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.idade }}</dd>
+                    <dt class="col-lg-2">Nascimento:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.data_nascimento }}</dd>
+
+                    <dt class="col-lg-2">CPF:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.cpf }}</dd>
+                    <dt class="col-lg-2">E-mail:</dt>
+                    <dd class="col-lg-4">{{ usuario.email }}</dd>
+                </dl>
+
+                <p class="lead">Dados de endereço</p>
+                <p>Caso precise editar, <a href="{% url 'perfil:criar' %}">clique aqui</a></p>
+                <dl class="row">
+                    <dt class="col-lg-2">Endereço:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.endereco }}</dd>
+                    <dt class="col-lg-2">Número:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.numero }}</dd>
+
+                    <dt class="col-lg-2">Complemento:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.complemento }}</dd>
+                    <dt class="col-lg-2">Bairro:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.bairro }}</dd>
+
+                    <dt class="col-lg-2">Cidade:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.cidade }}</dd>
+                    <dt class="col-lg-2">Estado:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.estado }}</dd>
+
+                    <dt class="col-lg-2">CEP:</dt>
+                    <dd class="col-lg-4">{{ usuario.perfil.cep }}</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <h3>Carrinho de compras</h3>
+                <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
+        
+                {% include 'parciais/_carrinho.html' %}
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col">
+                <p class='lead text-right'>
+                    <span class="font-weight-bold">Total:</span> {{carrinho|carrinho_total|formata_preco}}
+                </p>
+            </div>                
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-block btn-primary btn-lg" href="{% url 'pedido:salvarpedido' %}">
+                    Realizar pedido e pagar
+                </a>
+            </div>
+        </div>
+
+
+
+    </main>
+</body>
+
+{% endblock %}

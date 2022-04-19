@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block titulo %}{{pedido}} | {% endblock %}
+
+{% load static %}
+{% load ecofilters %}
+
+{% block 'conteudo' %}
+
+{% include 'parciais/_pedido.html' %}
+
+{% endblock%}
